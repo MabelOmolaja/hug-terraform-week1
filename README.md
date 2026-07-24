@@ -4,18 +4,15 @@
 
 ## Project Overview
 
+<img width="1280" height="759" alt="HUG_website" src="https://github.com/user-attachments/assets/f7bacf78-f3a3-40ca-8275-1e01b8b6b6a8" />
+
 This project was completed as part of the **HUG Lagos/Ibadan Terraform Challenge Week One**.
 
 The objective was to provision a simple web server on AWS using **Terraform Infrastructure as Code (IaC)**.
 
 Instead of manually creating resources through the AWS Console, Terraform was used to automate the deployment of cloud infrastructure.
 
-The final result is a publicly accessible web server running **Nginx on Amazon EC2**, serving a custom webpage displaying:
-
-* My name
-* HUG Lagos/Ibadan Terraform Challenge
-* Information about the AWS Terraform deployment
-
+The final result is a publicly accessible web server running **Nginx on Amazon EC2**
 ---
 
 # Architecture Overview
@@ -33,24 +30,7 @@ The infrastructure deployed using Terraform includes:
 
 Architecture flow:
 
-```
-User Browser
-      |
-      |
-Internet Gateway
-      |
-      |
-Public Subnet
-      |
-      |
-EC2 Instance
-      |
-      |
-Nginx Web Server
-      |
-      |
-Custom HTML Web Page
-```
+<img width="1080" height="592" alt="HUG_architecture-diagram" src="https://github.com/user-attachments/assets/2e84e021-96c6-43e9-bf77-2396c7c10c9b" />
 
 ---
 
@@ -234,6 +214,7 @@ Created a Security Group allowing:
 ---
 
 ## Step 6: Provisioning the EC2 Instance
+<img width="1279" height="757" alt="HUG_EC2" src="https://github.com/user-attachments/assets/f472fa8e-baed-4f60-b9ca-2101390954fe" />
 
 Created an Amazon EC2 instance using Terraform.
 
