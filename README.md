@@ -12,7 +12,6 @@ The objective was to provision a simple web server on AWS using **Terraform Infr
 
 Instead of manually creating resources through the AWS Console, Terraform was used to automate the deployment of cloud infrastructure.
 
-The final result is a publicly accessible web server running **Nginx on Amazon EC2**
 ---
 
 # Architecture Overview
