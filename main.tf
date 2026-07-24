@@ -1,0 +1,144 @@
+resource "aws_vpc" "hug_vpc" {
+
+  cidr_block = "10.0.0.0/16"
+
+  tags = {
+    Name = "hug-week1-vpc"
+  }
+
+}
+
+resource "aws_subnet" "public_subnet" {
+
+  vpc_id = aws_vpc.hug_vpc.id
+
+  cidr_block = "10.0.1.0/24"
+
+  availability_zone = "eu-west-2a"
+
+  map_public_ip_on_launch = true
+
+  tags = {
+    Name = "hug-public-subnet"
+  }
+
+}
+resource "aws_internet_gateway" "hug_igw" {
+
+  vpc_id = aws_vpc.hug_vpc.id
+
+  tags = {
+    Name = "hug-internet-gateway"
+  }
+
+}
+resource "aws_route_table" "public_route_table" {
+
+  vpc_id = aws_vpc.hug_vpc.id
+
+
+  route {
+
+    cidr_block = "0.0.0.0/0"
+
+    gateway_id = aws_internet_gateway.hug_igw.id
+
+  }
+
+
+  tags = {
+
+    Name = "hug-public-route-table"
+
+  }
+
+}
+resource "aws_route_table_association" "public_subnet_association" {
+
+  subnet_id = aws_subnet.public_subnet.id
+
+  route_table_id = aws_route_table.public_route_table.id
+
+}
+resource "aws_security_group" "web_sg" {
+
+  name = "hug-web-security-group"
+
+  description = "Allow SSH and HTTP traffic"
+
+  vpc_id = aws_vpc.hug_vpc.id
+
+
+  ingress {
+
+    description = "Allow SSH"
+
+    from_port = 22
+
+    to_port = 22
+
+    protocol = "tcp"
+
+    cidr_blocks = ["0.0.0.0/0"]
+
+  }
+
+
+  ingress {
+
+    description = "Allow HTTP"
+
+    from_port = 80
+
+    to_port = 80
+
+    protocol = "tcp"
+
+    cidr_blocks = ["0.0.0.0/0"]
+
+  }
+
+
+  egress {
+
+    from_port = 0
+
+    to_port = 0
+
+    protocol = "-1"
+
+    cidr_blocks = ["0.0.0.0/0"]
+
+  }
+
+
+  tags = {
+
+    Name = "hug-web-security-group"
+
+  }
+}
+resource "aws_instance" "web_server" {
+
+  ami = data.aws_ami.amazon_linux.id
+
+  instance_type = "t3.micro"
+
+  subnet_id = aws_subnet.public_subnet.id
+
+
+  vpc_security_group_ids = [
+    aws_security_group.web_sg.id
+  ]
+
+
+  user_data = file("userdata.sh")
+
+
+  tags = {
+
+    Name = "hug-web-server"
+
+  }
+
+}
