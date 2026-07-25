@@ -1,6 +1,6 @@
 # HUG Lagos/Ibadan Terraform Challenge - Week One
 
-# Deploying a Basic Web Server on AWS Using Terraform
+## Deploying a Basic Web Server on AWS Using Terraform
 
 ## Project Overview
 
